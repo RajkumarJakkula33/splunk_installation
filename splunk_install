@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Update the package index
+sudo apt-get update
+
+# Install required dependencies
+sudo apt-get install -y wget
+
+# Download the Splunk installation package
+wget -O splunk-8.2.2-87344edfcdb4-Linux-x86_64.tgz 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=8.2.2&product=splunk&filename=splunk-8.2.2-87344edfcdb4-Linux-x86_64.tgz&wget=true'
+
+# Extract the Splunk package
+sudo tar -xzvf splunk-8.2.2-87344edfcdb4-Linux-x86_64.tgz -C /opt
+
+# Remove the downloaded tarball
+rm splunk-8.2.2-87344edfcdb4-Linux-x86_64.tgz
+
+# Start Splunk and accept the license agreement
+sudo /opt/splunk/bin/splunk start --accept-license --answer-yes
+
+# Set Splunk to start at boot
+sudo /opt/splunk/bin/splunk enable boot-start
+
+# Prompt the user to set up a username and password for Splunk
+echo "Setting up Splunk username and password:"
+sudo /opt/splunk/bin/splunk edit user admin -password YOUR_PASSWORD -role admin -auth admin:changeme
+
+echo "Splunk installation completed. Access Splunk at http://localhost:8000/"

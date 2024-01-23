@@ -94,23 +94,6 @@ resource "aws_security_group" "Jenkins-splunk-sg" {
   }
 }
 
-# Create an Splunk and Jenkin-sonar Instance
-
-(* resource "aws_instance" "jenkin-sonar" {
-  ami                    = "ami-0c7217cdde317cfec"
-  instance_type          = "t2.large"
-  key_name               = "jan5"
-  iam_instance_profile   = "${aws_iam_instance_profile.ec2_profile.name}"
-  vpc_security_group_ids = [aws_security_group.Jenkins-splunk-sg.id]
-  user_data              = file("install_jenkins.sh")
-  tags = {
-    Name = "Jenkins-sonar"
-  }
-  root_block_device {
-    volume_size = 30
-  }
-}
- *)
 resource "aws_instance" "splunk" {
   ami                    = "ami-0c7217cdde317cfec"
   instance_type          = "t2.medium"
